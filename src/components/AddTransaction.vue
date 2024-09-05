@@ -4,19 +4,21 @@ import { useToast } from 'vue-toastification';
 
 const text = ref('');
 const amount = ref('');
-const selectedOption = ref('1');
+const selectedOption = ref('');
 
 const emit = defineEmits(['addTransaction']);
 
 const toast = useToast();
 const onSubmit = () => {
-    console.log(selectedOption.value);
+    if(selectedOption.value === ''){
+        toast.error('Please select an option');
+        return;
+    }
+
     if (!text.value | !amount.value) {
         toast.error('Please add a text and amount');
         return;
     }
-
-    console.log(selectedOption.value);
 
     const transactionData = {
         text: text.value,
